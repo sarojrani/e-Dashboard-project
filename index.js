@@ -15,6 +15,9 @@ app.post('/register',async(req,res)=>{
     let newdata=await user.create(data)
     return res.status(201).send({status:true,data:newdata})
 })
+app.post('/login',(req,res)=>{
+    res.send(req.body)
+})
 
 app.listen(process.env.PORT,(err)=>{
     if(!err){
