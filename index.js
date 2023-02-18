@@ -69,6 +69,31 @@ app.post("/add-product",async (req,res)=>{
 
     
 })
+app.get("/get-product",async (req,res)=>{
+    try {
+        let products = await product.find();
+        if(products.length>0){
+            return res.status(200).send(products)
+        }
+        else{
+            return res.status(404).send({result:'no result found'})
+        }
+        
+    } catch (error) {
+        return res.status(500).send(error)
+        
+    }
+})
+app.delete("/product/:id",async(req,res)=>{
+    try{
+    let id=req.params.id;
+    const result=await product.deleteOne({_id:id})
+    return res.status(200).send(result)
+    }
+    catch(err){
+        return res.status(500).send({status:false,message:err})
+    }
+})
 
 
 app.listen(process.env.PORT, (err) => {
